@@ -64,7 +64,6 @@ public class SpellingBee {
         if (high - low == 0) {
             return null;
         }
-        return null;
     }
 
     // Removes duplicates from the sorted list.
