@@ -2,7 +2,6 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-// Spelling Bee by Lucas Huang
 /**
  * Spelling Bee
  *
@@ -23,7 +22,7 @@ import java.util.Scanner;
  * It utilizes recursion to generate the strings, mergesort to sort them, and
  * binary search to find them in a dictionary.
  *
- * @author Zach Blick, [ADD YOUR NAME HERE]
+ * @author Zach Blick, Lucas Huang
  *
  * Written on March 5, 2023 for CS2 @ Menlo School
  *
@@ -60,10 +59,46 @@ public class SpellingBee {
     }
 
     // Mergesort method for the sort method
-    public String mergeSort(int low, int high) {
-        if (high - low == 0) {
+    public ArrayList<String> mergeSort(ArrayList<String> words, int low, int high) {
+        ArrayList<String> combined = new ArrayList<String>();
+        // Base case where if ArrayList is empty don't return anything
+        if (high == low) {
             return null;
         }
+        // Calculate middle index
+        int mid = (high + low) / 2;
+        // Recursively Mergesort each half
+        mergeSort(0, mid);
+        mergeSort(mid + 1, high);
+        // Initialize pointers for both halves
+        int i = low;
+        int j = mid + 1;
+        // While loop to compare two arraylists until one is empty
+        while (i <= mid && j <= high) {
+            // If left arraylist first letter comes after right arraylist first letter put right word first
+            if (words.get(i).compareTo(words.get(j)) > 0) {
+                combined.add(words.get(j));
+                j++;
+            }
+            // Else add left arraylist word first
+            else {
+                combined.add(words.get(j));
+                    j++;
+            }
+        }
+        if (i > mid) {
+            while (j <= high) {
+                combined.add(words.get(j));
+                j++;
+            }
+        }
+        else {
+            while (i <= mid) {
+                combined.add(words.get(i));
+                i++;
+            }
+        }
+        return combined;
     }
 
     // Removes duplicates from the sorted list.
