@@ -56,48 +56,59 @@ public class SpellingBee {
     //  that will find the substrings recursively.
     public void sort() {
         // YOUR CODE HERE
+        words = mergeSort(words, 0, words.size() - 1);
     }
 
     // Mergesort method for the sort method
     public ArrayList<String> mergeSort(ArrayList<String> words, int low, int high) {
-        ArrayList<String> combined = new ArrayList<String>();
         // Base case where if ArrayList is empty don't return anything
         if (high == low) {
-            return null;
+            ArrayList<String> result = new ArrayList<String>();
+            result.add(words.get(low));
+            return result;
         }
         // Calculate middle index
         int mid = (high + low) / 2;
         // Recursively Mergesort each half
-        mergeSort(0, mid);
-        mergeSort(mid + 1, high);
+        ArrayList<String> left = mergeSort(words,0, mid);
+        ArrayList<String> right = mergeSort(words, mid + 1, high);
+        // Return the sorted arraylist
+        return finalMerge(left, right);
+    }
+
+    // Actual sorting part of the method
+    public ArrayList<String> finalMerge(ArrayList<String> left, ArrayList<String> right) {
         // Initialize pointers for both halves
-        int i = low;
-        int j = mid + 1;
+        ArrayList<String> combined = new ArrayList<String>();
+        int i = 0;
+        int j = 0;
         // While loop to compare two arraylists until one is empty
-        while (i <= mid && j <= high) {
+        while (i < left.size() && j < right.size()) {
             // If left arraylist first letter comes after right arraylist first letter put right word first
-            if (words.get(i).compareTo(words.get(j)) > 0) {
-                combined.add(words.get(j));
+            if (left.get(i).compareTo(right.get(j)) > 0) {
+                combined.add(right.get(j));
                 j++;
             }
             // Else add left arraylist word first
             else {
-                combined.add(words.get(j));
-                    j++;
+                combined.add(left.get(j));
+                j++;
             }
         }
-        if (i > mid) {
-            while (j <= high) {
-                combined.add(words.get(j));
+        // Finishes the rest of the arraylist that isn't empty
+        if (i == left.size()) {
+            while (j < right.size()) {
+                combined.add(right.get(j));
                 j++;
             }
         }
         else {
-            while (i <= mid) {
-                combined.add(words.get(i));
+            while (i < left.size()) {
+                combined.add(left.get(i));
                 i++;
             }
         }
+        // Returns the sorted arraylist
         return combined;
     }
 
