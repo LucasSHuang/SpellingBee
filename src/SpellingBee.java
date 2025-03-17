@@ -2,6 +2,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+// Spelling Bee by Lucas Huang
 /**
  * Spelling Bee
  *
@@ -28,6 +29,7 @@ import java.util.Scanner;
  *
  * DO NOT MODIFY MAIN OR ANY OF THE METHOD HEADERS.
  */
+
 public class SpellingBee {
 
     private String letters;
@@ -47,10 +49,22 @@ public class SpellingBee {
         // YOUR CODE HERE — Call your recursive method!
     }
 
+    public void generateHelper(String start, String end) {
+
+    }
+
     // TODO: Apply mergesort to sort all words. Do this by calling ANOTHER method
     //  that will find the substrings recursively.
     public void sort() {
         // YOUR CODE HERE
+    }
+
+    // Mergesort method for the sort method
+    public String mergeSort(int low, int high) {
+        if (high - low == 0) {
+            return null;
+        }
+        return null;
     }
 
     // Removes duplicates from the sorted list.
