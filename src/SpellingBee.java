@@ -81,7 +81,7 @@ public class SpellingBee {
         // Calculate middle index
         int mid = (high + low) / 2;
         // Recursively Mergesort each half
-        ArrayList<String> left = mergeSort(words,0, mid);
+        ArrayList<String> left = mergeSort(words,low, mid);
         ArrayList<String> right = mergeSort(words, mid + 1, high);
         // Return the sorted arraylist
         return finalMerge(left, right);
@@ -139,7 +139,31 @@ public class SpellingBee {
     //  If it is not in the dictionary, remove it from words.
     public void checkWords() {
         // YOUR CODE HERE
+        for (int i = 0; i < words.size(); i++) {
+            if (!binarySearch(words.get(i))) {
+                words.remove(i);
+                i--;
+            }
+        }
+    }
 
+    public boolean binarySearch(String word) {
+        int low = 0;
+        int high = DICTIONARY_SIZE - 1;
+        while (low <= high) {
+            int mid = (high + low) / 2;
+            int comparison = word.compareTo(DICTIONARY[mid]);
+            if (comparison == 0) {
+                return true;
+            }
+            else if (comparison > 0) {
+                low = mid + 1;
+            }
+            else {
+                high = mid - 1;
+            }
+        }
+        return false;
     }
 
     // Prints all valid words to wordList.txt
