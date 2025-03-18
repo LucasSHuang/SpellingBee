@@ -50,13 +50,15 @@ public class SpellingBee {
     }
 
     public void generateHelper(String newWord, String word) {
-        if (letters.isEmpty()) {
+        // Base case
+        if (word.isEmpty()) {
             return;
         }
-        for (int i = 0; i < letters.length(); i++) {
-            String temp = word + letters.charAt(i);
+        // Recursive case that creates all possible combinations
+        for (int i = 0; i < word.length(); i++) {
+            String temp = newWord + word.charAt(i);
             words.add(temp);
-            generateHelper(temp, letters.substring(i + 1));
+            generateHelper(temp, word.substring(0, i) + word.substring(i + 1));
         }
     }
 
@@ -137,6 +139,7 @@ public class SpellingBee {
     //  If it is not in the dictionary, remove it from words.
     public void checkWords() {
         // YOUR CODE HERE
+
     }
 
     // Prints all valid words to wordList.txt
