@@ -46,16 +46,25 @@ public class SpellingBee {
     //  that will find the substrings recursively.
     public void generate() {
         // YOUR CODE HERE — Call your recursive method!
+        generateHelper("", letters);
     }
 
-    public void generateHelper(String start, String end) {
-
+    public void generateHelper(String newWord, String word) {
+        if (letters.isEmpty()) {
+            return;
+        }
+        for (int i = 0; i < letters.length(); i++) {
+            String temp = word + letters.charAt(i);
+            words.add(temp);
+            generateHelper(temp, letters.substring(i + 1));
+        }
     }
 
     // TODO: Apply mergesort to sort all words. Do this by calling ANOTHER method
     //  that will find the substrings recursively.
     public void sort() {
         // YOUR CODE HERE
+        // Calls recursive method to sort out arraylist
         words = mergeSort(words, 0, words.size() - 1);
     }
 
@@ -91,8 +100,8 @@ public class SpellingBee {
             }
             // Else add left arraylist word first
             else {
-                combined.add(left.get(j));
-                j++;
+                combined.add(left.get(i));
+                i++;
             }
         }
         // Finishes the rest of the arraylist that isn't empty
